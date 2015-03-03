@@ -1,5 +1,5 @@
 name 'juliengk-env'
-version '0.4.0'
+version '2.0.0'
 source 'git://github.com/juliengk/puppet-module-env.git'
 author 'juliengk'
 license 'Apache License, Version 2.0'
@@ -7,4 +7,4 @@ summary 'Manage http_proxy and path env variables'
 description 'Manage http_proxy and path env variables'
 project_page 'https://github.com/juliengk/puppet-module-env'
 
-dependency 'puppetlabs/stdlib', '>= 3.2.0'
+dependency 'puppetlabs/stdlib', '>= 4.5.1'

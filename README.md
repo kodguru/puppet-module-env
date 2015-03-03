@@ -1,5 +1,4 @@
 # Env module
-===
 
 [![Build Status](https://api.travis-ci.org/juliengk/puppet-module-env.png?branch=master)](https://travis-ci.org/juliengk/puppet-module-env)
 
@@ -7,18 +6,37 @@ Module to manage path and http_proxy env variables.
 
 ## Compatibility ##
 
-This module is built for use with Puppet v3 on the following platforms and supports Ruby versions 1.8.7, 1.9.3, and 2.0.0.
+This module is built for use with Puppet v3 on the platforms bellow and supports Ruby versions 1.8.7, 1.9.3, and 2.0.0.
 
-* EL 5
-* EL 6
-* EL 7
-* Suse 10
-* Suse 11
-* Debian 7
-* Ubuntu 12.04 LTS
-* Solaris 9
-* Solaris 10
-* Solaris 11
+* RedHat
+* Suse
+* Debian
+* Solaris
+
+===
+
+## Class `env` ##
+
+ensure
+------
+Whether to set or unset path settings to pass to ensure. Valid values 'present' or 'absent'
+
+- *Default*: 'present'
+
+profile_file
+------------
+
+- *Default*: 'undef'
+
+content_sh
+----------
+
+- *Default*: 'undef'
+
+content_csh
+-----------
+
+- *Default*: 'undef'
 
 ===
 
@@ -26,29 +44,35 @@ This module is built for use with Puppet v3 on the following platforms and suppo
 
 ### Components ###
 
-<pre>
+```
 PATH="${PATH}:/opt/example/bin"
-</pre>
+```
 
 ### Parameters ###
 
 ensure
 ------
-Whether to set or unset path settings to pass to path::ensure. Valid values 'present' or 'absent'
+Whether to set or unset path settings to pass to env::path::ensure. Valid values 'present' or 'absent'
 
 - *Default*: 'present'
 
-include_existing_path
----------------------
-Boolean to add already path variable to pass to env::path::include_existing_path
+profile_file
+------------
+Name of the file to create or update to pass to env::path::profile_file
 
-- *Default*: true
+- *Default*: 'path'
 
-directories
------------
-Array of directories to pass to env::path::directories
+enable_sh
+---------
+Boolean to enable sh support
 
-- *Default*: undef
+- *Default*: 'USE_DEFAULTS'
+
+enable_csh
+----------
+Boolean to enable csh support
+
+- *Default*: 'USE_DEFAULTS'
 
 enable_hiera_array
 ------------------
@@ -56,31 +80,31 @@ Boolean to enable the merge of hiera array to pass to env::path::enable_hiera_ar
 
 - *Default*: false
 
-existing_file
--------------
-Boolean of whether create a new file or update an existing one to pass to env::path::existing_file
+include_existing_path
+---------------------
+Boolean to add already existing path variable to pass to env::path::include_existing_path
 
-- *Default*: 'USE_DEFAULTS'
+- *Default*: true
 
-profile_proxy
--------------
-Path to the file to create or update to pass to env::path::profile_proxy
+directories
+-----------
+Array of directories to pass to env::path::directories
 
-- *Default*: 'USE_DEFAULTS'
+- *Default*: 'MANDATORY'
 
 # Example usage #
 
-<pre>
+```
 env::path::include_existing_path: false
 env::path::directories:
   - '/opt/example/bin'
-</pre>
+```
 
 ## Class `env::proxy` ##
 
 ### Components ###
 
-<pre>
+```
 http_proxy="http://proxy.example.com:8080"
 https_proxy=${http_proxy}
 HTTP_PROXY=${http_proxy}
@@ -90,7 +114,7 @@ ftp_proxy=${http_proxy}
 no_proxy="localhost,.example.com"
 
 export http_proxy https_proxy HTTP_PROXY HTTPS_PROXY ftp_proxy no_proxy
-</pre>
+```
 
 ### Parameters ###
 
@@ -100,23 +124,23 @@ Whether to set or unset proxy settings to pass to env::proxy::ensure. Valid valu
 
 - *Default*: 'present'
 
-url
----
-String with the proxy url to pass to env::proxy::url
+profile_file
+------------
+Name of the file to create or update to pass to env::proxy::profile_file
 
-- *Default*: undef
+- *Default*: 'proxy'
 
-port
-----
-Port number to pass to env::proxy::port
+enable_sh
+---------
+Boolean to enable sh support
 
-- *Default*: undef
+- *Default*: 'USE_DEFAULTS'
 
-exceptions
+enable_csh
 ----------
-Array of exceptions to pass to env::proxy::exceptions
+Boolean to enable csh support
 
-- *Default*: undef
+- *Default*: 'USE_DEFAULTS'
 
 enable_hiera_array
 ------------------
@@ -124,25 +148,31 @@ Boolean to enable the merge of hiera array to pass to env::proxy::enable_hiera_a
 
 - *Default*: false
 
-existing_file
--------------
-Boolean of whether create a new file or update an existing one to pass to env::proxy::existing_file
+url
+---
+String with the proxy url to pass to env::proxy::url
 
-- *Default*: 'USE_DEFAULTS'
+- *Default*: 'MANDATORY'
 
-profile_file
-------------
-Path to the file to create or update to pass to env::proxy::profile_file
+port
+----
+Port number to pass to env::proxy::port
 
-- *Default*: 'USE_DEFAULTS'
+- *Default*: '8080'
+
+exceptions
+----------
+Array of exceptions to pass to env::proxy::exceptions
+
+- *Default*: 'undef'
 
 # Example usage #
 
-<pre>
+```
 env::proxy::url: 'proxy.example.com'
 env::proxy::port: 8080
 env::proxy::exceptions:
   - 'localhost'
   - "%{::ipaddress}"
   - '.example.com'
-</pre>
+```

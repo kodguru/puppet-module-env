@@ -1,170 +1,129 @@
-# ## Class: env::path ##
+# == Class: env::path
 #
-# Set custom path env variables
+# Set path env variables
 #
 class env::path (
-  $ensure                = 'present',
-  $include_existing_path = true,
-  $directories           = undef,
+  $profile_file_ensure   = 'present',
+  $profile_file          = 'path',
+  $enable_sh             = 'USE_DEFAULTS',
+  $enable_csh            = 'USE_DEFAULTS',
   $enable_hiera_array    = false,
-  $existing_file         = 'USE_DEFAULTS',
-  $profile_file          = 'USE_DEFAULTS',
+  $include_existing_path = true,
+  $directories           = 'MANDATORY',
 ) {
 
-  validate_re($ensure, '^(present|absent)$',
-    "env::path::ensure is <${ensure}>. Must be present or absent.")
+  include env
 
-  $include_existing_path_type = type($include_existing_path)
+  validate_re($profile_file_ensure, '^(present|absent)$',
+    "env::path::profile_file_ensure is <${profile_file_ensure}>. Must be present or absent.")
 
-  case $include_existing_path_type {
-    'string': {
-      $include_existing_path_real = str2bool($include_existing_path)
-    }
-    'boolean': {
-      $include_existing_path_real = $include_existing_path
-    }
-    default: {
-      fail("env::path::include_existing_path must be of type boolean or string. Detected type is <${include_existing_path_type}>.")
-    }
-  }
-
-  $enable_hiera_array_type = type($enable_hiera_array)
-
-  case $enable_hiera_array_type {
-    'string': {
-      $enable_hiera_array_real = str2bool($enable_hiera_array)
-    }
-    'boolean': {
-      $enable_hiera_array_real = $enable_hiera_array
-    }
-    default: {
-      fail("env::path::enable_hiera_array must be of type boolean or string. Detected type is <${enable_hiera_array_type}>.")
-    }
-  }
+  validate_re($profile_file, '^[a-zA-Z0-9\-_]+$',
+    'env::path::profile_file must be a string and match the regex.')
 
   case $::osfamily {
     'RedHat': {
-      case $::lsbmajdistrelease {
-        '5': {
-          $existing_file_default = false
-          $profile_file_default  = '/etc/profile.d/path.sh'
-        }
-        '6': {
-          $existing_file_default = false
-          $profile_file_default  = '/etc/profile.d/path.sh'
-        }
-        '7': {
-          $existing_file_default = false
-          $profile_file_default  = '/etc/profile.d/path.sh'
-        }
-        default: {
-          fail("Path is only supported on EL 5, 6 and 7. Your lsbmajdistrelease is identified as <${::lsbmajdistrelease}>.")
-        }
-      }
+      $enable_sh_default  = true
+      $enable_csh_default = true
     }
     'Suse': {
-      case $::lsbmajdistrelease {
-        '10': {
-          $existing_file_default = false
-          $profile_file_default  = '/etc/profile.d/path.sh'
-        }
-        '11': {
-          $existing_file_default = false
-          $profile_file_default  = '/etc/profile.d/path.sh'
-        }
-        default: {
-          fail("Path is only supported on Suse 10 and 11. Your lsbmajdistrelease is identified as <${::lsbmajdistrelease}>.")
-        }
-      }
+      $enable_sh_default  = true
+      $enable_csh_default = true
     }
     'Debian': {
-      case $::lsbdistid {
-        'Debian': {
-          case $::lsbmajdistrelease {
-            '7': {
-              $existing_file_default = false
-              $profile_file_default  = '/etc/profile.d/path.sh'
-            }
-            default: {
-              fail("Path is only supported on lsbdistid Ubuntu of the Debian osfamily. Your lsbdistid is <${::lsbdistid}>.")
-            }
-          }
-        }
-        'Ubuntu': {
-          case $::lsbdistrelease {
-            '12.04': {
-              $existing_file_default = false
-              $profile_file_default  = '/etc/profile.d/path.sh'
-            }
-            default: {
-              fail("Path is only supported on Ubuntu 12.04. Your lsbdistrelease is identified as <${::lsbdistrelease}>.")
-            }
-          }
-        }
-      }
+      $enable_sh_default  = true
+      $enable_csh_default = true
     }
     'Solaris': {
-      case $::kernelrelease {
-        '5.9': {
-          $existing_file_default = true
-          $profile_file_default  = '/etc/profile'
-        }
-        '5.10': {
-          $existing_file_default = true
-          $profile_file_default  = '/etc/profile'
-        }
-        '5.11': {
-          $existing_file_default = true
-          $profile_file_default  = '/etc/profile'
-        }
-        default: {
-          fail("Path is only supported on Solaris 9, 10 and 11. Your kernelrelease is identified as <${::kernelrelease}>.")
-        }
-      }
+      $enable_sh_default  = true
+      $enable_csh_default = false
     }
     default: {
-      fail("Path supports OS families Debian, RedHat, Suse and Solaris. Detected osfamily is <${::osfamily}>.")
+      fail("env::path supports OS families RedHat, Suse, Debian and Solaris. Detected osfamily is <${::osfamily}>.")
     }
   }
 
-  if type($existing_file) == 'boolean' {
-    $existing_file_real = $existing_file
+  if $enable_sh == 'USE_DEFAULTS' {
+    $enable_sh_real = $enable_sh_default
   } else {
-    $existing_file_real = $existing_file ? {
-      'USE_DEFAULTS' => $existing_file_default,
-      default        => str2bool($existing_file)
+    if is_string($enable_sh) {
+      $enable_sh_real = str2bool($enable_sh)
+    } elsif is_bool($enable_sh) {
+      $enable_sh_real = $enable_sh
+    } else {
+      fail('env::path::enable_sh must be of type boolean or string.')
     }
+    validate_bool($enable_sh_real)
   }
 
-  if $profile_file == 'USE_DEFAULTS' {
-    $profile_file_real = $profile_file_default
+  if $enable_csh == 'USE_DEFAULTS' {
+    $enable_csh_real = $enable_csh_default
   } else {
-    $profile_file_real = $profile_file
+    if is_string($enable_csh) {
+      $enable_csh_real = str2bool($enable_csh)
+    } elsif is_bool($enable_csh) {
+      $enable_csh_real = $enable_csh
+    } else {
+      fail('env::path::enable_csh must be of type boolean or string.')
+    }
+    validate_bool($enable_csh_real)
   }
 
-  if $directories {
+  if is_string($enable_hiera_array) {
+    $enable_hiera_array_real = str2bool($enable_hiera_array)
+  } elsif is_bool($enable_hiera_array) {
+    $enable_hiera_array_real = $enable_hiera_array
+  } else {
+    fail('env::path::enable_hiera_array must be of type boolean or string.')
+  }
+  validate_bool($enable_hiera_array_real)
+
+  if is_string($include_existing_path) {
+    $include_existing_path_real = str2bool($include_existing_path)
+  } elsif is_bool($include_existing_path) {
+    $include_existing_path_real = $include_existing_path
+  } else {
+    fail('env::path::include_existing_path must be of type boolean or string.')
+  }
+  validate_bool($include_existing_path_real)
+
+  if $directories == 'MANDATORY' {
+    fail('env::path::directories is MANDATORY.')
+  } elsif is_array($directories) {
     if $enable_hiera_array_real {
       $directories_arr = hiera_array('env::path::directories')
     } else {
       $directories_arr = $directories
     }
 
-    $directories_real = join($directories_arr, ':')
+    if $enable_sh_real {
+      $directories_sh_real = join($directories_arr, ':')
+    }
+    if $enable_csh_real {
+      $directories_csh_real = join($directories_arr, ' ')
+    }
   } else {
-    $directories_real = undef
+    fail('env::path::directories must be an array.')
   }
 
-  if $existing_file_real {
-    $state_real = 'update'
-  } else {
-    $state_real = 'new'
+  if $enable_sh_real {
+    file { "profile_d_${profile_file}_sh":
+      ensure  => $profile_file_ensure,
+      path    => "/etc/profile.d/${profile_file}.sh",
+      owner   => 'root',
+      group   => 'root',
+      mode    => '0644',
+      content => template('env/path.sh.erb'),
+    }
   }
 
-  path_env { 'profile_path':
-    ensure                => $ensure,
-    state                 => $state_real,
-    include_existing_path => $include_existing_path_real,
-    directories           => $directories_real,
-    path                  => $profile_file_real,
+  if $enable_csh_real {
+    file { "profile_d_${profile_file}_csh":
+      ensure  => $profile_file_ensure,
+      path    => "/etc/profile.d/${profile_file}.csh",
+      owner   => 'root',
+      group   => 'root',
+      mode    => '0644',
+      content => template('env/path.csh.erb'),
+    }
   }
 }
