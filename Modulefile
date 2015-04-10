@@ -1,5 +1,5 @@
 name 'juliengk-env'
-version '0.4.0'
+version '0.5.0'
 source 'git://github.com/juliengk/puppet-module-env.git'
 author 'juliengk'
 license 'Apache License, Version 2.0'

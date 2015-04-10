@@ -61,8 +61,12 @@ class env::proxy (
           $existing_file_default = false
           $profile_file_default  = '/etc/profile.d/proxy.sh'
         }
+        '12': {
+          $existing_file_default = false
+          $profile_file_default  = '/etc/profile.d/proxy.sh'
+        }
         default: {
-          fail("Proxy is only supported on Suse 10 and 11. Your lsbmajdistrelease is identified as <${::lsbmajdistrelease}>.")
+          fail("Proxy is only supported on Suse 10, 11 and 12. Your lsbmajdistrelease is identified as <${::lsbmajdistrelease}>.")
         }
       }
     }

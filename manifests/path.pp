@@ -72,8 +72,12 @@ class env::path (
           $existing_file_default = false
           $profile_file_default  = '/etc/profile.d/path.sh'
         }
+        '12': {
+          $existing_file_default = false
+          $profile_file_default  = '/etc/profile.d/path.sh'
+        }
         default: {
-          fail("Path is only supported on Suse 10 and 11. Your lsbmajdistrelease is identified as <${::lsbmajdistrelease}>.")
+          fail("Path is only supported on Suse 10, 11 and 12. Your lsbmajdistrelease is identified as <${::lsbmajdistrelease}>.")
         }
       }
     }
