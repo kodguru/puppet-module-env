@@ -52,8 +52,8 @@ class env::path (
     } else {
       fail('env::path::enable_sh must be of type boolean or string.')
     }
-    validate_bool($enable_sh_real)
   }
+  validate_bool($enable_sh_real)
 
   if $enable_csh == 'USE_DEFAULTS' {
     $enable_csh_real = $enable_csh_default
@@ -65,8 +65,8 @@ class env::path (
     } else {
       fail('env::path::enable_csh must be of type boolean or string.')
     }
-    validate_bool($enable_csh_real)
   }
+  validate_bool($enable_csh_real)
 
   if is_string($enable_hiera_array) {
     $enable_hiera_array_real = str2bool($enable_hiera_array)

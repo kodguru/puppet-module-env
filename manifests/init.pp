@@ -18,15 +18,11 @@ class env (
   }
 
   if $content_sh {
-    unless is_string($content_sh) {
-      fail('env::content_sh must be a string.')
-    }
+    validate_string($content_sh)
   }
 
   if $content_csh {
-    unless is_string($content_csh) {
-      fail('env::content_csh must be a string.')
-    }
+    validate_string($content_csh)
   }
 
   if $::osfamily == 'Solaris' {

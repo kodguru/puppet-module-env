@@ -8,3 +8,4 @@ description 'Manage http_proxy and path env variables'
 project_page 'https://github.com/juliengk/puppet-module-env'
 
 dependency 'puppetlabs/stdlib', '>= 4.5.1'
+dependency 'juliengk/stdlibplus', '>= 1.0.0'

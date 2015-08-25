@@ -53,8 +53,8 @@ class env::proxy (
     } else {
       fail('env::proxy::enable_sh must be of type boolean or string.')
     }
-    validate_bool($enable_sh_real)
   }
+  validate_bool($enable_sh_real)
 
   if $enable_csh == 'USE_DEFAULTS' {
     $enable_csh_real = $enable_csh_default
@@ -66,8 +66,8 @@ class env::proxy (
     } else {
       fail('env::proxy::enable_csh must be of type boolean or string.')
     }
-    validate_bool($enable_csh_real)
   }
+  validate_bool($enable_csh_real)
 
   if is_string($enable_hiera_array) {
     $enable_hiera_array_real = str2bool($enable_hiera_array)
@@ -81,19 +81,10 @@ class env::proxy (
   if $url == 'MANDATORY' or empty($url) {
     fail('env::proxy::url is MANDATORY.')
   } else {
-    validate_re($url, '(?=^[a-zA-Z0-9\-\.]{1,254}$)(^(?!\-)([a-zA-Z0-9\-]{1,63}\.)+[a-zA-Z]{2,63}$)',
-      "env::proxy::url is <${url}>. Must be an url.")
+    validate_fqdn($url)
   }
 
-  if is_integer($port) {
-    $port_real = num2str($port)
-  } elsif is_string($port) {
-    $port_real = $port
-  } else {
-    fail("env::proxy::port is <${port}>. Must be an integer or a string.")
-  }
-  validate_re($port_real, '^([1-9]{1}|[1-9][0-9]{1,3}|[1-5][0-9]{4}|6[0-4][0-9]{3}|65[0-4][0-9]{2}|655[0-2][0-9]|6553[0-5])$',
-    "env::proxy::port is <${port_real}>. Must match the regex.")
+  validate_port($port)
 
   if $exceptions {
     if is_array($exceptions) {
