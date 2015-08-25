@@ -1,0 +1,14 @@
+# This file is being maintained by Puppet.
+# DO NOT EDIT
+#
+http_proxy="http://<%= @url %>:<%= @port %>"
+https_proxy=${http_proxy}
+HTTP_PROXY=${http_proxy}
+HTTPS_PROXY=${http_proxy}
+ftp_proxy=${http_proxy}
+
+<% if @exceptions_real -%>
+no_proxy="<%= @exceptions_real %>"
+<% end -%>
+
+export http_proxy https_proxy HTTP_PROXY HTTPS_PROXY ftp_proxy<% if @exceptions_real %> no_proxy<% end %>
