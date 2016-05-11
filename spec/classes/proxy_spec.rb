@@ -34,7 +34,7 @@ describe 'env::proxy', :type => 'class' do
     it do
       expect {
         should contain_class('env::proxy')
-      }.to raise_error(Puppet::Error, /^env::proxy supports OS families RedHat, Suse, Debian and Solaris. Detected osfamily is <CoreOS>./)
+      }.to raise_error(Puppet::Error, /env::proxy supports OS families RedHat, Suse, Debian and Solaris. Detected osfamily is <CoreOS>./)
     end
   end
 
@@ -46,7 +46,7 @@ describe 'env::proxy', :type => 'class' do
         it do
           expect {
             should contain_class('env::proxy')
-          }.to raise_error(Puppet::Error, /^env::proxy::url is MANDATORY./)
+          }.to raise_error(Puppet::Error, /env::proxy::url is MANDATORY./)
         end
       end
     end
@@ -99,7 +99,7 @@ describe 'env::proxy', :type => 'class' do
       it do
         expect {
           should contain_class('env::proxy')
-        }.to raise_error(Puppet::Error, /^env::proxy::profile_file_ensure is <directory>. Must be present or absent./)
+        }.to raise_error(Puppet::Error, /env::proxy::profile_file_ensure is <directory>. Must be present or absent./)
       end
     end
   end
@@ -173,7 +173,7 @@ describe 'env::proxy', :type => 'class' do
         it do
           expect {
             should contain_class('env::proxy')
-          }.to raise_error(Puppet::Error, /^^str2bool\(\): Unknown type of boolean/)
+          }.to raise_error(Puppet::Error, /str2bool\(\): Unknown type of boolean/)
         end
       end
     end
@@ -233,7 +233,7 @@ describe 'env::proxy', :type => 'class' do
       it do
         expect {
           should contain_class('env::proxy')
-        }.to raise_error(Puppet::Error, /^env::proxy::profile_file must be a string and match the regex./)
+        }.to raise_error(Puppet::Error, /env::proxy::profile_file must be a string and match the regex./)
       end
     end
   end
@@ -263,7 +263,7 @@ describe 'env::proxy', :type => 'class' do
       it do
         expect {
           should contain_class('env::path')
-        }.to raise_error(Puppet::Error, /^env::proxy::enable_hiera_array must be of type boolean or string./)
+        }.to raise_error(Puppet::Error, /env::proxy::enable_hiera_array must be of type boolean or string./)
       end
     end
   end
@@ -338,7 +338,7 @@ describe 'env::proxy', :type => 'class' do
         it do
           expect {
             should contain_class('env::proxy')
-          }.to raise_error(Puppet::Error, /validate_port\(\): #{port} is not a valid port number./)
+          }.to raise_error(Puppet::Error, /validate_port\(\): .?#{port}.? is not a valid port number./)
         end
       end
     end
@@ -373,7 +373,7 @@ describe 'env::proxy', :type => 'class' do
       it do
         expect {
           should contain_class('env::proxy')
-        }.to raise_error(Puppet::Error, /^env::proxy::exceptions must be an array./)
+        }.to raise_error(Puppet::Error, /env::proxy::exceptions must be an array./)
       end
     end
   end

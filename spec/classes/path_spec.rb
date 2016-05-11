@@ -34,7 +34,7 @@ describe 'env::path', :type => 'class' do
     it do
       expect {
         should contain_class('env::path')
-      }.to raise_error(Puppet::Error, /^env::path supports OS families RedHat, Suse, Debian and Solaris. Detected osfamily is <CoreOS>./)
+      }.to raise_error(Puppet::Error, /env::path supports OS families RedHat, Suse, Debian and Solaris. Detected osfamily is <CoreOS>./)
     end
   end
 
@@ -46,7 +46,7 @@ describe 'env::path', :type => 'class' do
         it do
           expect {
             should contain_class('env::path')
-          }.to raise_error(Puppet::Error, /^env::path::directories is MANDATORY./)
+          }.to raise_error(Puppet::Error, /env::path::directories is MANDATORY./)
         end
       end
     end
@@ -99,7 +99,7 @@ describe 'env::path', :type => 'class' do
       it do
         expect {
           should contain_class('env')
-        }.to raise_error(Puppet::Error, /^env::path::profile_file_ensure is <directory>. Must be present or absent./)
+        }.to raise_error(Puppet::Error, /env::path::profile_file_ensure is <directory>. Must be present or absent./)
       end
     end
   end
@@ -173,7 +173,7 @@ describe 'env::path', :type => 'class' do
         it do
           expect {
             should contain_class('env::path')
-          }.to raise_error(Puppet::Error, /^^str2bool\(\): Unknown type of boolean/)
+          }.to raise_error(Puppet::Error, /str2bool\(\): Unknown type of boolean/)
         end
       end
     end
@@ -185,7 +185,7 @@ describe 'env::path', :type => 'class' do
       it do
         expect {
           should contain_class('env::path')
-        }.to raise_error(Puppet::Error, /^env::path::directories must be an array./)
+        }.to raise_error(Puppet::Error, /env::path::directories must be an array./)
       end
     end
   end
@@ -203,7 +203,7 @@ describe 'env::path', :type => 'class' do
       it do
         expect {
           should contain_class('env::path')
-        }.to raise_error(Puppet::Error, /^env::path::enable_hiera_array must be of type boolean or string./)
+        }.to raise_error(Puppet::Error, /env::path::enable_hiera_array must be of type boolean or string./)
       end
     end
   end
@@ -233,7 +233,7 @@ describe 'env::path', :type => 'class' do
       it do
         expect {
           should contain_class('env::path')
-        }.to raise_error(Puppet::Error, /^env::path::include_existing_path must be of type boolean or string./)
+        }.to raise_error(Puppet::Error, /env::path::include_existing_path must be of type boolean or string./)
       end
     end
 
@@ -249,7 +249,7 @@ describe 'env::path', :type => 'class' do
       it do
         expect {
           should contain_class('env::path')
-        }.to raise_error(Puppet::Error, /^str2bool\(\): Unknown type of boolean/)
+        }.to raise_error(Puppet::Error, /str2bool\(\): Unknown type of boolean/)
       end
     end
   end
@@ -326,7 +326,7 @@ describe 'env::path', :type => 'class' do
       it do
         expect {
           should contain_class('env::path')
-        }.to raise_error(Puppet::Error, /^env::path::profile_file must be a string and match the regex./)
+        }.to raise_error(Puppet::Error, /env::path::profile_file must be a string and match the regex./)
       end
     end
   end
