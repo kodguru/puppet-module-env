@@ -185,7 +185,7 @@ describe 'env::proxy', :type => 'class' do
       it do
         expect {
           should contain_class('env::proxy')
-        }.to raise_error(Puppet::Error, /^env::proxy::url is <proxy.example.com10>\. Must be an url\./)
+        }.to raise_error(Puppet::Error, /validate_fqdn\(\): "#{params[:url]}" is not a valid FQDN./)
       end
     end
   end
@@ -285,7 +285,7 @@ describe 'env::proxy', :type => 'class' do
         it do
           expect {
             should contain_class('env::proxy')
-          }.to raise_error(Puppet::Error, /env::proxy::url is <#{url}>. Must be an url./)
+          }.to raise_error(Puppet::Error, /validate_fqdn\(\): "#{params[:url]}" is not a valid FQDN./)
         end
       end
     end
@@ -320,12 +320,12 @@ describe 'env::proxy', :type => 'class' do
         it do
           expect {
             should contain_class('env::proxy')
-          }.to raise_error(Puppet::Error, /^env::proxy::port is <#{port}>. Must match the regex./)
+          }.to raise_error(Puppet::Error, /validate_port\(\): #{port} is not a valid port number./)
         end
       end
     end
 
-    [ true, 80.0 ].each do |port|
+    [ true, 80.2 ].each do |port|
       context "to an invalid value <#{port}>" do
         let(:facts) { { :osfamily => 'RedHat' } }
         let(:params) do
@@ -338,7 +338,7 @@ describe 'env::proxy', :type => 'class' do
         it do
           expect {
             should contain_class('env::proxy')
-          }.to raise_error(Puppet::Error, /^env::proxy::port is <#{port}>. Must be an integer or a string./)
+          }.to raise_error(Puppet::Error, /validate_port\(\): #{port} is not a valid port number./)
         end
       end
     end
