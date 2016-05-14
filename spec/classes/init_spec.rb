@@ -145,7 +145,7 @@ describe 'env', :type => 'class' do
       it do
         expect {
           should contain_class('env')
-        }.to raise_error(Puppet::Error, /env::content_sh must be a string./)
+        }.to raise_error(Puppet::Error, /is not a string.\s+It looks to be a Array./)
       end
     end
   end
@@ -186,7 +186,7 @@ describe 'env', :type => 'class' do
       it do
         expect {
           should contain_class('env')
-        }.to raise_error(Puppet::Error, /env::content_csh must be a string./)
+        }.to raise_error(Puppet::Error, /is not a string.\s+It looks to be a Array./)
       end
     end
   end
