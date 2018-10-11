@@ -12,7 +12,7 @@ class env::path (
   $directories           = 'MANDATORY',
 ) {
 
-  include env
+  include ::env
 
   validate_re($profile_file_ensure, '^(present|absent)$',
     "env::path::profile_file_ensure is <${profile_file_ensure}>. Must be present or absent.")

@@ -13,7 +13,7 @@ class env::proxy (
   $exceptions          = undef,
 ) {
 
-  include env
+  include ::env
 
   validate_re($profile_file_ensure, '^(present|absent)$',
     "env::proxy::profile_file_ensure is <${profile_file_ensure}>. Must be present or absent.")
