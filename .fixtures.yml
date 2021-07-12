@@ -2,7 +2,7 @@ fixtures:
   repositories:
     stdlib:
       repo: 'https://github.com/puppetlabs/puppetlabs-stdlib.git'
-      ref: '4.5.1'
+      ref: '5.2.0'
     stdlibplus:
       repo: 'https://github.com/juliengk/puppet-stdlibplus.git'
       ref: 'v0.1.8'
