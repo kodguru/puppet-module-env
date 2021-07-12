@@ -35,7 +35,7 @@ class env (
     }
 
     exec { 'etc_profile':
-      command => 'echo "\n#Puppet: Do not removed\nif [ -d /etc/profile.d ]; then\n\tfor i in /etc/profile.d/*.sh; do\n\t\tif [ -r \$i ]; then\n\t\t\t. \$i\n\t\tfi\n\tdone\n\tunset i\nfi\n" >> /etc/profile',
+      command => 'echo "\n#Puppet: Do not removed\nif [ -d /etc/profile.d ]; then\n\tfor i in /etc/profile.d/*.sh; do\n\t\tif [ -r \$i ]; then\n\t\t\t. \$i\n\t\tfi\n\tdone\n\tunset i\nfi\n" >> /etc/profile', #lint:ignore:140chars
       unless  => 'grep "if \[ \-d \/etc\/profile\.d \]; then" /etc/profile',
       path    => [ '/usr/bin', '/usr/sbin' ],
       require => File['profile_d'],

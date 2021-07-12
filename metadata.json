@@ -1,0 +1,52 @@
+{
+  "name": "kodguru-env",
+  "version": "1.0.1",
+  "author": "kodguru (based on work by juliengk)",
+  "summary": "Manage http_proxy and path env variables",
+  "license": "Apache-2.0",
+  "source": "git@github.com:kodguru/puppet-module-env.git",
+  "project_page": "https://github.com/kodguru/puppet-module-env",
+  "issues_url": "https://github.com/kodguru/puppet-module-env/issues",
+  "dependencies": [
+    {
+      "name": "puppetlabs/stdlib",
+      "version_requirement": ">= 5.2.0 < 8.0.0"
+    },
+    {
+      "name": "kodguru/stdlib",
+      "version_requirement": ">= 0.1.8 < 2.0.0"
+    }
+  ],
+  "operatingsystem_support": [
+    {
+      "operatingsystem": "CentOS"
+    },
+    {
+      "operatingsystem": "OracleLinux"
+    },
+    {
+      "operatingsystem": "RedHat"
+    },
+    {
+      "operatingsystem": "Scientific"
+    },
+    {
+      "operatingsystem": "Debian"
+    },
+    {
+      "operatingsystem": "Ubuntu"
+    },
+    {
+      "operatingsystem": "Solaris"
+    }
+  ],
+  "requirements": [
+    {
+      "name": "puppet",
+      "version_requirement": ">= 6.21.0 < 8.0.0"
+    }
+  ],
+  "pdk-version": "2.1.1",
+  "template-url": "pdk-default#2.1.1",
+  "template-ref": "tags/2.1.1-0-g03daa92"
+}
