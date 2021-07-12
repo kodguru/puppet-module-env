@@ -16,5 +16,37 @@
       "name": "kodguru/stdlib",
       "version_requirement": ">= 0.1.8 < 2.0.0"
     }
-  ]
+  ],
+  "operatingsystem_support": [
+    {
+      "operatingsystem": "CentOS"
+    },
+    {
+      "operatingsystem": "OracleLinux"
+    },
+    {
+      "operatingsystem": "RedHat"
+    },
+    {
+      "operatingsystem": "Scientific"
+    },
+    {
+      "operatingsystem": "Debian"
+    },
+    {
+      "operatingsystem": "Ubuntu"
+    },
+    {
+      "operatingsystem": "Solaris"
+    }
+  ],
+  "requirements": [
+    {
+      "name": "puppet",
+      "version_requirement": ">= 6.21.0 < 8.0.0"
+    }
+  ],
+  "pdk-version": "2.1.1",
+  "template-url": "pdk-default#2.1.1",
+  "template-ref": "tags/2.1.1-0-g03daa92"
 }

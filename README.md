@@ -6,7 +6,9 @@ Module to manage path and http_proxy env variables.
 
 ## Compatibility ##
 
-This module is built for use with Puppet v3 on the platforms bellow and supports Ruby versions 1.8.7, 1.9.3, and 2.0.0.
+This module has been tested to work on the following systems with Puppet
+versions 5, 6 and 7 with the Ruby version associated with those releases.
+This module aims to support the current and previous major Puppet versions.
 
 * RedHat
 * Suse
